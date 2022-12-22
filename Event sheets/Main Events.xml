@@ -1,0 +1,936 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Main Events</name>
+    <events>
+        <variable constant="0" name="Best" sid="761108440431356" static="0" type="number">0</variable>
+        <variable constant="0" name="SFX" sid="129369005656808" static="0" type="number">1</variable>
+        <variable constant="0" name="BGM" sid="776765793480227" static="0" type="number">1</variable>
+        <variable constant="0" name="Level" sid="537721234644989" static="0" type="number">0</variable>
+        <variable constant="0" name="Timer" sid="527622271519530" static="0" type="number">0</variable>
+        <variable constant="0" name="MaxCD" sid="314078728272685" static="0" type="number">5</variable>
+        <variable constant="0" name="SkillCD" sid="354334985734140" static="0" type="number">0</variable>
+        <variable comment="Tile side length" constant="0" name="TileSize" sid="197019194347737" static="0" type="number">32</variable>
+        <variable constant="0" name="GhostsEaten" sid="8220442508829511" static="0" type="number">0</variable>
+        <variable comment="dummy variable for convenience" constant="0" name="n" sid="9416243770980124" static="0" type="number">0</variable>
+        <event-block sid="5453821316744744">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="1489192831496784" type="System" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="6965436792029973" type="Ngepet">
+                    <param id="0" name="Animation">Self.GhostName &amp; str(Self.Direction)</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="-10" name="Set value" sid="4359562271916096" type="Ngepet">
+                    <param id="0" name="Instance variable">TargetX</param>
+                    <param id="1" name="Value">Self.X</param>
+                </action>
+                <action id="-10" name="Set value" sid="6275496600233055" type="Ngepet">
+                    <param id="0" name="Instance variable">TargetY</param>
+                    <param id="1" name="Value">Self.Y</param>
+                </action>
+                <action behavior="Bullet" id="0" name="Set speed" sid="6171003842928322" type="Ngepet">
+                    <param id="0" name="Speed">0</param>
+                </action>
+                <action id="4" name="Set animation" sid="289467768749349" type="Player">
+                    <param id="0" name="Animation">&quot;Player_Idle_&quot; &amp; Chara</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="5" name="Check item exists" sid="142908518961866" type="LocalStorage">
+                    <param id="0" name="Key">&quot;Best&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Pause the game.</comment>
+        <event-block sid="6327828869886067">
+            <conditions>
+                <condition id="0" name="On key pressed" sid="6819291319894562" type="Keyboard">
+                    <param id="0" name="Key">80</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-13" name="Set time scale" sid="1409789461202802" type="System">
+                    <param id="0" name="Time scale">1 - timescale </param>
+                </action>
+            </actions>
+        </event-block>
+        <event-group description="" sid="1501804008768454" title="PacMan Movement">
+            <sub-events>
+                <event-block sid="1619303167999651">
+                    <conditions />
+                    <actions />
+                    <sub-events>
+                        <event-block any="1" sid="8065013164378839">
+                            <conditions>
+                                <condition id="2" name="Key is down" sid="5497013508951065" type="Keyboard">
+                                    <param id="0" name="Key">38</param>
+                                </condition>
+                                <condition id="2" name="Key is down" sid="8024424699311392" type="Keyboard">
+                                    <param id="0" name="Key">40</param>
+                                </condition>
+                                <condition id="2" name="Key is down" sid="9777509902690995" type="Keyboard">
+                                    <param id="0" name="Key">37</param>
+                                </condition>
+                                <condition id="2" name="Key is down" sid="9001782604607838" type="Keyboard">
+                                    <param id="0" name="Key">39</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-1" name="Set X" sid="1582858423879636" type="CollisionDetector">
+                                    <param id="0" name="X">Player.TargetX</param>
+                                </action>
+                                <action id="-2" name="Set Y" sid="5559340744072229" type="CollisionDetector">
+                                    <param id="0" name="Y">Player.TargetY</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="67952411841687" title="Ghost Movement">
+            <sub-events>
+                <event-block sid="8785375304711352">
+                    <conditions>
+                        <condition id="-11" name="For Each" sid="4827045962420026" type="System">
+                            <param id="0" name="Object">Ngepet</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <comment>If a Ghost has stopped moving, its time to calculate the next move.</comment>
+                        <event-block sid="6615311758883067">
+                            <conditions>
+                                <condition behavior="Bullet" id="0" name="Compare speed" sid="5171933312986407" type="Ngepet">
+                                    <param id="0" name="Comparison">0</param>
+                                    <param id="1" name="Speed">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Set size" sid="5186344019222292" type="AvailableDirections">
+                                    <param id="0" name="Width">0</param>
+                                    <param id="1" name="Height">1</param>
+                                    <param id="2" name="Depth">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <comment>First, we determine which directions are available to the current Ghost, and create a list (using an Array).&#x0D;&#x0A;In this loop, &quot;n&quot; represents the angle of movement along which we test for walls.</comment>
+                                <event-block sid="6595981448014689">
+                                    <conditions>
+                                        <condition id="-10" name="For" sid="9126245787529578" type="System">
+                                            <param id="0" name="Name">&quot;loop&quot;</param>
+                                            <param id="1" name="Start index">0</param>
+                                            <param id="2" name="End index">3</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="1106002094043317" type="System">
+                                            <param id="0" name="Variable">n</param>
+                                            <param id="1" name="Value">loopindex(&quot;loop&quot;) * 90</param>
+                                        </action>
+                                        <action id="-1" name="Set X" sid="7736537731072942" type="CollisionDetector">
+                                            <param id="0" name="X">Ngepet.X + cos(n) * TileSize</param>
+                                        </action>
+                                        <action id="-2" name="Set Y" sid="8626494879367725" type="CollisionDetector">
+                                            <param id="0" name="Y">Ngepet.Y + sin(n) * TileSize</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <comment>If we detect that there is no obstacle in the way, then we can add this direction to our list.</comment>
+                                        <event-block sid="8111772715523981">
+                                            <conditions>
+                                                <condition id="1" inverted="1" name="Is overlapping another object" sid="3945445694569104" type="CollisionDetector">
+                                                    <param id="0" name="Object">Tilemap</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="5" name="Push" sid="3811611099782513" type="AvailableDirections">
+                                                    <param id="0" name="Where">1</param>
+                                                    <param id="1" name="Value">n</param>
+                                                    <param id="2" name="Axis">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <comment>If there are multiple directions to choose from, remove the backwards direction from consideration.&#x0D;&#x0A;(The only case in which the ghost will move backwards is when at a &quot;dead end&quot;.)&#x0D;&#x0A;In this line of code, &quot;n&quot; represents the angle that is backwards to the ghost. </comment>
+                                <event-block sid="6720859492353334">
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" sid="8788661747373283" type="System">
+                                            <param id="0" name="First value">AvailableDirections.Width</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Second value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="7709252920515082" type="System">
+                                            <param id="0" name="Variable">n</param>
+                                            <param id="1" name="Value">(Ngepet.Direction + 180) % 360</param>
+                                        </action>
+                                        <action id="9" name="Delete" sid="5893866528033386" type="AvailableDirections">
+                                            <param id="0" name="Index">AvailableDirections.IndexOf(n)</param>
+                                            <param id="1" name="Axis">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>Choose a random direction - this will be the default.</comment>
+                                <event-block sid="6534646632278677">
+                                    <conditions>
+                                        <condition id="-1" name="Every tick" sid="4479066254164917" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="4891950443526126" type="System">
+                                            <param id="0" name="Variable">n</param>
+                                            <param id="1" name="Value">floor(random( AvailableDirections.Width ))</param>
+                                        </action>
+                                        <action id="-10" name="Set value" sid="8531263338416401" type="Ngepet">
+                                            <param id="0" name="Instance variable">Direction</param>
+                                            <param id="1" name="Value">AvailableDirections.At(n)</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="5175980188858954" type="System">
+                                            <param id="0" name="Group name">&quot;Escape Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="9491224530218851" type="System">
+                                            <param id="0" name="Group name">&quot;Home Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>the A.I. part</comment>
+                                <event-block sid="8848552837547355">
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" sid="1354588707912195" type="Ngepet">
+                                            <param id="0" name="Instance variable">GhostName</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">&quot;Blinky&quot;</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" sid="7457301853046925" type="System">
+                                            <param id="0" name="Group name">&quot;Vertical Priority&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="4673292408431372" type="System">
+                                            <param id="0" name="Group name">&quot;Horizontal Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="1215520403688585">
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" sid="4745165903287634" type="Ngepet">
+                                            <param id="0" name="Instance variable">GhostName</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">&quot;Pinky&quot;</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" sid="4746545129387711" type="System">
+                                            <param id="0" name="Group name">&quot;Vertical Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="7813983941206064" type="System">
+                                            <param id="0" name="Group name">&quot;Horizontal Priority&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="6535239619954119">
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" sid="4301775233941992" type="Ngepet">
+                                            <param id="0" name="Instance variable">GhostName</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">&quot;Inky&quot;</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" sid="1849656216757937" type="System">
+                                            <param id="0" name="Group name">&quot;Vertical Priority&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="6607095977797016" type="System">
+                                            <param id="0" name="Group name">&quot;Horizontal Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block sid="5534714461504573">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="9811529391194971" type="System">
+                                                    <param id="0" name="First value">random(1)</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">0.5</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-12" name="Set group active" sid="606885839031153" type="System">
+                                                    <param id="0" name="Group name">&quot;Vertical Priority&quot;</param>
+                                                    <param id="1" name="State">0</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" sid="5474934404641381" type="System">
+                                                    <param id="0" name="Group name">&quot;Horizontal Priority&quot;</param>
+                                                    <param id="1" name="State">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <event-block sid="2436358749068937">
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" sid="5008841712386439" type="Ngepet">
+                                            <param id="0" name="Instance variable">GhostName</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">&quot;Clyde&quot;</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" sid="7745223056784896" type="System">
+                                            <param id="0" name="Group name">&quot;Vertical Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" sid="9333655769804975" type="System">
+                                            <param id="0" name="Group name">&quot;Horizontal Priority&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-group description="" sid="7129807456282927" title="Vertical Priority">
+                                    <sub-events>
+                                        <event-block sid="4458867863549153">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="8954264593385762" type="System">
+                                                    <param id="0" name="First value">Player.X</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Ngepet.X</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="1206150368714457" type="AvailableDirections">
+                                                    <param id="0" name="Value">180</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="2472165479747152" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">180</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="9754052808876104">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="9224782192816511" type="System">
+                                                    <param id="0" name="First value">Ngepet.X</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Player.X</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="5602403780033846" type="AvailableDirections">
+                                                    <param id="0" name="Value">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="6744332395142846" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="5163973420856943">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="4940765587701981" type="System">
+                                                    <param id="0" name="First value">Player.Y</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Ngepet.Y</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="7043866842228054" type="AvailableDirections">
+                                                    <param id="0" name="Value">270</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="2636553736804719" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">270</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="8177047854781352">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="6594109110988894" type="System">
+                                                    <param id="0" name="First value">Ngepet.Y</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Player.Y</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="791211756887063" type="AvailableDirections">
+                                                    <param id="0" name="Value">90</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="4287857742195688" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">90</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                                <event-group description="" sid="2645524184336885" title="Horizontal Priority">
+                                    <sub-events>
+                                        <event-block sid="3163837511451532">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="9484175514314344" type="System">
+                                                    <param id="0" name="First value">Player.Y</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Ngepet.Y</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="5487540184626067" type="AvailableDirections">
+                                                    <param id="0" name="Value">270</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="4567029765161956" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">270</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="2273705059348013">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="8341822458940305" type="System">
+                                                    <param id="0" name="First value">Ngepet.Y</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Player.Y</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="7775908105482003" type="AvailableDirections">
+                                                    <param id="0" name="Value">90</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="5216911737470697" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">90</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="1168573904915619">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="7843030134677194" type="System">
+                                                    <param id="0" name="First value">Player.X</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Ngepet.X</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="7137114056845797" type="AvailableDirections">
+                                                    <param id="0" name="Value">180</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="1498801330907504" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">180</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block sid="6962485055656427">
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" sid="5496434421374265" type="System">
+                                                    <param id="0" name="First value">Ngepet.X</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">Player.X</param>
+                                                </condition>
+                                                <condition id="5" name="Contains value" sid="4216317695347316" type="AvailableDirections">
+                                                    <param id="0" name="Value">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Set value" sid="551742772825172" type="Ngepet">
+                                                    <param id="0" name="Instance variable">Direction</param>
+                                                    <param id="1" name="Value">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                                <comment>Update target information with chosen direction</comment>
+                                <event-block sid="8430934006675433">
+                                    <conditions>
+                                        <condition id="-1" name="Every tick" sid="3237207017891722" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-10" name="Set value" sid="8965342295318981" type="Ngepet">
+                                            <param id="0" name="Instance variable">TargetX</param>
+                                            <param id="1" name="Value">Self.X + cos(Self.Direction) * TileSize</param>
+                                        </action>
+                                        <action id="-10" name="Set value" sid="7974353617862493" type="Ngepet">
+                                            <param id="0" name="Instance variable">TargetY</param>
+                                            <param id="1" name="Value">Self.Y + sin(Self.Direction) * TileSize</param>
+                                        </action>
+                                        <action behavior="Bullet" id="0" name="Set speed" sid="8885498682567559" type="Ngepet">
+                                            <param id="0" name="Speed">TileSize / Self.MoveDuration</param>
+                                        </action>
+                                        <action behavior="Bullet" id="3" name="Set angle of motion" sid="5483904368090572" type="Ngepet">
+                                            <param id="0" name="Angle">Self.Direction</param>
+                                        </action>
+                                        <action id="-16" name="Wait" sid="9902529907449673" type="System">
+                                            <param id="0" name="Seconds">Ngepet.MoveDuration</param>
+                                        </action>
+                                        <action behavior="Bullet" id="0" name="Set speed" sid="9290071806114846" type="Ngepet">
+                                            <param id="0" name="Speed">0</param>
+                                        </action>
+                                        <action id="-1" name="Set X" sid="2098464207779235" type="Ngepet">
+                                            <param id="0" name="X">Self.TargetX</param>
+                                        </action>
+                                        <action id="-2" name="Set Y" sid="1970531639051185" type="Ngepet">
+                                            <param id="0" name="Y">Self.TargetY</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block sid="930307329101703">
+                                            <conditions>
+                                                <condition id="2" inverted="1" name="Is playing" sid="2346828087160135" type="Ngepet">
+                                                    <param id="0" name="Animation">&quot;Vulnerable&quot;</param>
+                                                </condition>
+                                                <condition id="2" inverted="1" name="Is playing" sid="4107745665434166" type="Ngepet">
+                                                    <param id="0" name="Animation">&quot;VulnerableBlink&quot;</param>
+                                                </condition>
+                                                <condition id="2" inverted="1" name="Is playing" sid="2751466004209935" type="Ngepet">
+                                                    <param id="0" name="Animation">&quot;Eaten&quot;</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="4" name="Set animation" sid="8838214874729631" type="Ngepet">
+                                                    <param id="0" name="Animation">Self.GhostName &amp; str(Self.Direction)</param>
+                                                    <param id="1" name="From">1</param>
+                                                </action>
+                                                <action id="-10" name="Set value" sid="5190753948932355" type="Ngepet">
+                                                    <param id="0" name="Instance variable">MoveDuration</param>
+                                                    <param id="1" name="Value">0.33</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="6210531451549847" title="PacMan Collisions">
+            <sub-events>
+                <event-block sid="7955022090339572">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="6626763024865628" type="Player">
+                            <param id="0" name="Object">Ngepet</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-26" name="Restart layout" sid="265467555581639" type="System" />
+                    </actions>
+                    <sub-events>
+                        <event-block sid="684624901182608">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="608113342403690" type="System">
+                                    <param id="0" name="Variable">SFX</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Play" sid="341714607981699" type="Audio">
+                                    <param id="0" name="Audio file">Dead</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">0</param>
+                                    <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="490608521321172">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="740859199796154" type="Tengkorak">
+                    <param id="0" name="Object">Player</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-26" name="Restart layout" sid="973521221152741" type="System" />
+            </actions>
+            <sub-events>
+                <event-block sid="922751949250104">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="591074795965811" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Play" sid="851021429894030" type="Audio">
+                            <param id="0" name="Audio file">Dead</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="720847514609775">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="883128754050949" type="Player">
+                    <param id="0" name="Object">BossNgepet</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-26" name="Restart layout" sid="552829564478803" type="System" />
+            </actions>
+            <sub-events>
+                <event-block sid="683854720931935">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="745460381066238" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Play" sid="511224335809563" type="Audio">
+                            <param id="0" name="Audio file">Dead</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="996186661885576">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="483376497310305" type="System" />
+            </conditions>
+            <actions>
+                <action id="-3" name="Set position" sid="325932931548098" type="Camera">
+                    <param id="0" name="X">lerp(Self.X,Player.X, 0.03)</param>
+                    <param id="1" name="Y">lerp(Self.Y,Player.Y-150, 0.03)</param>
+                </action>
+                <action id="-3" name="Set position" sid="269560823297566" type="Lighting">
+                    <param id="0" name="X">Player.X</param>
+                    <param id="1" name="Y">Player.Y</param>
+                </action>
+                <action id="-3" name="Set position" sid="116009460158052" type="ManaBarContainer">
+                    <param id="0" name="X">Player.X - 1</param>
+                    <param id="1" name="Y">Player.Y - 25</param>
+                </action>
+                <action id="-4" name="Set position to another object" sid="380553193501513" type="ManaBar">
+                    <param id="0" name="Object">ManaBarContainer</param>
+                    <param id="1" name="Image point (optional)">&quot;Bar&quot;</param>
+                </action>
+                <action id="-5" name="Set width" sid="938722844209890" type="ManaBar">
+                    <param id="0" name="Width">SkillCD/MaxCD*ManaBar.MaxWidth</param>
+                </action>
+                <action id="0" name="Set text" sid="394975903738633" type="Best">
+                    <param id="0" name="Text">&quot;Best Time : &quot; &amp;Best</param>
+                </action>
+                <action id="0" name="Set text" sid="988290062805941" type="Timer">
+                    <param id="0" name="Text">&quot;Time (Seconds) : &quot; &amp;Timer</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="605557203488365">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="999824760115128" type="Player">
+                    <param id="0" name="Object">Door</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="511517743600313">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="810427128292026" type="System">
+                            <param id="0" name="Variable">Level</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Add to" sid="731189864061452" type="System">
+                            <param id="0" name="Variable">Level</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-2" name="Go to layout" sid="358760249294924" type="System">
+                            <param id="0" name="Layout">Main Layout 2</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="776050475792920">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="117635947660521" type="System">
+                            <param id="0" name="Variable">Level</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-25" name="Go to layout (by name)" sid="583667017590877" type="System">
+                            <param id="0" name="Layout">&quot;Main Menu&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-group description="" sid="671796174040285" title="Skill">
+            <sub-events>
+                <event-block sid="697726633886910">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="329438735295871" type="Keyboard">
+                            <param id="0" name="Key">32</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="8Direction" id="4" name="Set max speed" sid="129023955835870" type="Player">
+                            <param id="0" name="Max Speed">300</param>
+                        </action>
+                        <action behavior="Flash" id="0" name="Flash" sid="134621941136057" type="Player">
+                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                            <param id="2" name="Duration">1.5</param>
+                        </action>
+                        <action behavior="Timer" id="0" name="Start timer" sid="878734748498468" type="Player">
+                            <param id="0" name="Duration">1.5</param>
+                            <param id="1" name="Type">0</param>
+                            <param id="2" name="Tag">&quot;Skill&quot;</param>
+                        </action>
+                        <action id="-11" name="Subtract from" sid="981045909016516" type="System">
+                            <param id="0" name="Variable">SkillCD</param>
+                            <param id="1" name="Value">5</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="586394749664783">
+            <conditions>
+                <condition behavior="Timer" id="0" name="On timer" sid="803250734316769" type="Player">
+                    <param id="0" name="Tag">&quot;Skill&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-12" name="Set group active" sid="667153151987496" type="System">
+                    <param id="0" name="Group name">&quot;Skill&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action behavior="8Direction" id="4" name="Set max speed" sid="525403418184480" type="Player">
+                    <param id="0" name="Max Speed">150</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="797260172971978">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="792642768643813" type="System">
+                    <param id="0" name="Variable">SkillCD</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">5</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-12" name="Set group active" sid="165781756814249" type="System">
+                    <param id="0" name="Group name">&quot;Skill&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" sid="294837420753240" type="System">
+                    <param id="0" name="Group name">&quot;CD&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="902044568768587">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="516668965730803" type="System">
+                    <param id="0" name="Variable">SkillCD</param>
+                    <param id="1" name="Comparison">2</param>
+                    <param id="2" name="Value">5</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-12" name="Set group active" sid="976424267573137" type="System">
+                    <param id="0" name="Group name">&quot;Skill&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-12" name="Set group active" sid="153209571193581" type="System">
+                    <param id="0" name="Group name">&quot;CD&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-group description="" sid="895047161811617" title="CD">
+            <sub-events>
+                <event-block sid="662166861688418">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="629926671067367" type="System">
+                            <param id="0" name="Interval (seconds)">1.0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Add to" sid="707574616158640" type="System">
+                            <param id="0" name="Variable">SkillCD</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="423732920813376">
+            <conditions>
+                <condition id="2" name="Key is down" sid="367293255443937" type="Keyboard">
+                    <param id="0" name="Key">39</param>
+                </condition>
+                <condition id="2" inverted="1" name="Key is down" sid="346885809982323" type="Keyboard">
+                    <param id="0" name="Key">37</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="806322095424993" type="Player">
+                    <param id="0" name="Animation">&quot;Player_Walk_&quot; &amp; Chara</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="7" name="Set mirrored" sid="336500129349403" type="Player">
+                    <param id="0" name="State">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="719766704998643">
+            <conditions>
+                <condition id="2" name="Key is down" sid="902572271952681" type="Keyboard">
+                    <param id="0" name="Key">37</param>
+                </condition>
+                <condition id="2" inverted="1" name="Key is down" sid="697608334933866" type="Keyboard">
+                    <param id="0" name="Key">39</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="296976547235129" type="Player">
+                    <param id="0" name="Animation">&quot;Player_Walk_&quot; &amp; Chara</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="7" name="Set mirrored" sid="274541983316683" type="Player">
+                    <param id="0" name="State">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="173454333769760">
+            <conditions>
+                <condition id="-6" name="Every X seconds" sid="900562480133870" type="System">
+                    <param id="0" name="Interval (seconds)">3.0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Spawn another object" sid="570439886543815" type="BossNgepet">
+                    <param id="0" name="Object">Ngepet</param>
+                    <param id="1" name="Layer">&quot;Main&quot;</param>
+                    <param id="2" name="Image point">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="422038722928186">
+            <conditions>
+                <condition id="-6" name="Every X seconds" sid="716507040954190" type="System">
+                    <param id="0" name="Interval (seconds)">1.0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-10" name="Add to" sid="175202910176314" type="System">
+                    <param id="0" name="Variable">Timer</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="495539976821281">
+            <conditions>
+                <condition behavior="8Direction" id="0" inverted="1" name="Is moving" sid="818738795097645" type="Player" />
+            </conditions>
+            <actions>
+                <action id="4" name="Set animation" sid="586086123735126" type="Player">
+                    <param id="0" name="Animation">&quot;Player_Idle_&quot; &amp; Chara</param>
+                    <param id="1" name="From">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="823385190670330">
+            <conditions>
+                <condition id="-4" name="Is outside layout" sid="387571804278859" type="BossNgepet" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="530124006065666" type="BossNgepet" />
+            </actions>
+        </event-block>
+        <event-block sid="606976355835364">
+            <conditions>
+                <condition id="9" name="On item exists" sid="833521991152326" type="LocalStorage">
+                    <param id="0" name="Key">&quot;Best&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="1" name="Get item" sid="706897706423990" type="LocalStorage">
+                    <param id="0" name="Key">&quot;Best&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="326994405787804">
+            <conditions>
+                <condition id="1" name="On item get" sid="901595030514488" type="LocalStorage">
+                    <param id="0" name="Key">&quot;Best&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="529970595424874" type="System">
+                    <param id="0" name="Variable">Best</param>
+                    <param id="1" name="Value">LocalStorage.ItemValue</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="535085691108801">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="216365036441609" type="System">
+                    <param id="0" name="Variable">Timer</param>
+                    <param id="1" name="Comparison">4</param>
+                    <param id="2" name="Value">Best</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="333544446150056" type="System">
+                    <param id="0" name="Variable">Best</param>
+                    <param id="1" name="Value">Timer</param>
+                </action>
+                <action id="0" name="Set item" sid="777318848894970" type="LocalStorage">
+                    <param id="0" name="Key">&quot;Best&quot;</param>
+                    <param id="1" name="Value">Best</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="238323194365518">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="519698229777269" type="System" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="839237859820083">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="447482255345650" type="System">
+                            <param id="0" name="Variable">Level</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="610473001346751" type="System">
+                            <param id="0" name="Object to create">Player</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">1179</param>
+                            <param id="3" name="Y">62</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+    </events>
+</c2eventsheet>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Select</name>
+    <events>
+        <variable constant="0" name="Chara" sid="722573763195572" static="0" type="number">0</variable>
+        <event-block sid="475943287902136">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="905341243046466" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Aurum</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="904181652716033" type="System">
+                    <param id="0" name="Variable">Chara</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="610622484801277" type="Aurum">
+                    <param id="0" name="Opacity">100</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="351062675469226" type="Chomper">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="767444147299210" type="Venus">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="165929539505295" type="Silva">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="473751468275412">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="890758148161276" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Chomper</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="925485557617577" type="System">
+                    <param id="0" name="Variable">Chara</param>
+                    <param id="1" name="Value">2</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="232130729796828" type="Chomper">
+                    <param id="0" name="Opacity">100</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="645613901896886" type="Aurum">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="939554636034296" type="Venus">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="991149568320221" type="Silva">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="887760499710245">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="481603627301876" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Venus</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="384420770041369" type="System">
+                    <param id="0" name="Variable">Chara</param>
+                    <param id="1" name="Value">3</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="200285866712030" type="Venus">
+                    <param id="0" name="Opacity">100</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="788867129556609" type="Chomper">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="758145585417893" type="Aurum">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="963953002314362" type="Silva">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="991096648234689">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="299535956649738" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Silva</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="791242338884028" type="System">
+                    <param id="0" name="Variable">Chara</param>
+                    <param id="1" name="Value">4</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="881563180059902" type="Venus">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="798329342828481" type="Chomper">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="123439571146534" type="Aurum">
+                    <param id="0" name="Opacity">50</param>
+                </action>
+                <action id="-16" name="Set opacity" sid="956136729714473" type="Silva">
+                    <param id="0" name="Opacity">100</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="465757566454251">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="128519366471213" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Start</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-25" name="Go to layout (by name)" sid="366929670822498" type="System">
+                    <param id="0" name="Layout">&quot;Main Layout&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="851084673165143">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="652255125153981" type="System" />
+            </conditions>
+            <actions />
+        </event-block>
+    </events>
+</c2eventsheet>

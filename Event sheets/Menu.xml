@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Menu</name>
+    <events>
+        <event-block sid="495523482529471">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="561894423778008" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">PlayAgain</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-2" name="Go to layout" sid="576830421591852" type="System">
+                    <param id="0" name="Layout">Select Layout</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="723072673157634">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="218206311948777" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">Exit</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="1" name="Close" sid="734471703457668" type="Browser" />
+            </actions>
+        </event-block>
+        <event-block sid="369209169391291">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="323058643217831" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">SFXOFF</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="146555144641253">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="657913204263562" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-16" name="Wait" sid="373554202937817" type="System">
+                            <param id="0" name="Seconds">0</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="850918603331583" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="506060723514239" type="SFXON">
+                            <param id="0" name="Opacity">50</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="874319519154127" type="SFXOFF">
+                            <param id="0" name="Opacity">100</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="456284791874598">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="270821036252375" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">BGMOFF</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="831487699630545">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="604989769247433" type="System">
+                            <param id="0" name="Variable">BGM</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-16" name="Wait" sid="806479134917770" type="System">
+                            <param id="0" name="Seconds">0</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="730898927351082" type="System">
+                            <param id="0" name="Variable">BGM</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="398992542192458" type="BGMON">
+                            <param id="0" name="Opacity">50</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="834233649032835" type="BGMOFF">
+                            <param id="0" name="Opacity">100</param>
+                        </action>
+                        <action id="22" name="Set paused" sid="845157533791686" type="Audio">
+                            <param id="0" name="Tag">&quot;BGM&quot;</param>
+                            <param id="1" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="896663154524980">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="581855398218285" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">SFXON</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="673596258567774">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="278160990872067" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-16" name="Wait" sid="517696676526190" type="System">
+                            <param id="0" name="Seconds">0</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="385714050719729" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="605248869194311" type="SFXON">
+                            <param id="0" name="Opacity">100</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="764013752998602" type="SFXOFF">
+                            <param id="0" name="Opacity">50</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="540458282963031">
+            <conditions>
+                <condition id="6" name="On object clicked" sid="148698833956900" type="Mouse">
+                    <param id="0" name="Mouse button">0</param>
+                    <param id="1" name="Click type">0</param>
+                    <param id="2" name="Object clicked">BGMON</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="818057785235741">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="300787759301011" type="System">
+                            <param id="0" name="Variable">BGM</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-16" name="Wait" sid="352098513862561" type="System">
+                            <param id="0" name="Seconds">0</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="608016837168134" type="System">
+                            <param id="0" name="Variable">BGM</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="156131158141262" type="BGMON">
+                            <param id="0" name="Opacity">100</param>
+                        </action>
+                        <action id="-16" name="Set opacity" sid="653878052863163" type="BGMOFF">
+                            <param id="0" name="Opacity">50</param>
+                        </action>
+                        <action id="22" name="Set paused" sid="967650000819677" type="Audio">
+                            <param id="0" name="Tag">&quot;BGM&quot;</param>
+                            <param id="1" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="869794046305569">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="338481984221431" type="System" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="535372810232070">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="436724823775533" type="System">
+                            <param id="0" name="Variable">BGM</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Play" sid="389503283194920" type="Audio">
+                            <param id="0" name="Audio file">BeepBox-Song</param>
+                            <param id="2" name="Loop">1</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;BGM&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block sid="869699212632429">
+            <conditions>
+                <condition id="1" name="On any click" sid="617768757569827" type="Mouse" />
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="560610046666372">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="328380272636102" type="System">
+                            <param id="0" name="Variable">SFX</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Play" sid="518307232448836" type="Audio">
+                            <param id="0" name="Audio file">clicked</param>
+                            <param id="2" name="Loop">0</param>
+                            <param id="3" name="Volume">0</param>
+                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+    </events>
+</c2eventsheet>
